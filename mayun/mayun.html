@@ -1,73 +1,70 @@
-<！doctype 超文本标记语言>
-<超文本标记语言 朗="zh-CN">
-<头>
-    <元 字符集="UTF-8">
-    <元 姓名="视口" 内容="宽度=设备宽度，初始比例=1.0">
-    <标题>你好，马云</标题>
-    <风格>
-身体 {
-边缘: 0;
-高度：100VH；
-背景: #000;
-溢出：隐藏的；
-字体系列："微软雅黑"，无衬线；
-}
-.弹出窗口 {
-位置：绝对的；
-填充：11px15px；
-边界半径：3PX；
-颜色: #000;
-字体大小：13px；
-不透明度: 0;
-动画：向前弹出0.15秒缓出；
-箱形阴影：01PX5px RGBA(0,0,0,0.15);
-}
-@keyframes pop{
-0% { 不透明度: 0; 改变: 规模(0.4); }
-100% { 不透明度: 0.92; 改变: 规模(1); }
-}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你好，马云</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #000;
+            overflow: hidden;
+            font-family: "微软雅黑", sans-serif;
+        }
+        .popup {
+            position: absolute;
+            padding: 11px 15px;
+            border-radius: 3px;
+            color: #000;
+            font-size: 13px;
+            opacity: 0;
+            animation: pop 0.15s ease-out forwards;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.15);
+        }
+        @keyframes pop {
+            0% { opacity: 0; transform: scale(0.4); }
+            100% { opacity: 0.92; transform: scale(1); }
+        }
         
-音频 {
-显示：没有一个；
-}
-    </风格>
-</头>
-<身体>
-    
-    <音频 身份标识="audioPlayer">
-        <来源 src="zhong.mp3" 类型="音频/mpeg">
-    </音频>
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <audio id="audioPlayer">
+        <source src="zhong.mp3" type="audio/mpeg">
+    </audio>
 
-    <脚本>
-Const消息=[
-"马云", "彭倩"
-];
-Const颜色=[
-"#ffebcd"，"#f0fff0"，"#e6e6fa"，"#fff0f5"，
-"#f5f5dc"，"#fffacd"，"#f5fffa"，"#f0f8ff"
-];
+    <script>
+        const messages = [
+            "马云", "彭倩"
+        ];
+        const colors = [
+            "#ffebcd", "#f0fff0", "#e6e6fa", "#fff0f5",
+            "#f5f5dc", "#fffacd", "#f5fffa", "#f0f8ff"
+        ];
 
-setInterval(()=>{
-Const弹出窗口=文件.createElement("div")；
-弹出窗口.className="弹出窗口"；
-弹出窗口.textContent=消息[数学.地板(数学.随机()*消息.长度)]；
-弹出窗口.风格.backgroundColor=颜色[数学.地板(数学.随机()*颜色.长度)]；
-弹出窗口.风格.左 = `${数学.随机() * 85}%`;
-弹出窗口.风格.顶端 = `${数学.随机() * 85}%`;
-文件.身体.appendChild(弹出窗口)；
-}, 35);
-
-      
-Const音频=文件.getElementById('audioPlayer')；
-window.addEventListener('load'，()=>{
-音频.play().catch(()=>{
-警报(“音乐”)；
-文件.身体.addEventListener('click'，()=>{
-音频.环=true；
-音频.玩()；
-}，{once:true})；
-});
-});
-    </脚本>
-</身体>
-</超文本标记语言>
+        setInterval(() => {
+            const popup = document.createElement("div");
+            popup.className = "popup";
+            popup.textContent = messages[Math.floor(Math.random() * messages.length)];
+            popup.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            popup.style.left = `${Math.random() * 85}%`;
+            popup.style.top = `${Math.random() * 85}%`;
+            document.body.appendChild(popup);
+        }, 35);
+        const audio = document.getElementById('audioPlayer');
+        window.addEventListener('load', () => {
+            audio.play().catch(() => {
+                alert('music');
+                document.body.addEventListener('click', () => {
+                    audio.loop = true;
+                    audio.play();
+                }, { once: true });
+            });
+        });
+    </script>
+</body>
+</html>
